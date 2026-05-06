@@ -1,0 +1,52 @@
+using UnityEngine;
+
+public class LifeSystem : MonoBehaviour
+{
+    [SerializeField] private GameObject heart1;
+    [SerializeField] private GameObject heart2;
+    [SerializeField] private GameObject heart3;
+
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private FruitSpawner fruitSpawner;
+
+    private int lives = 3;
+
+    private void Start()
+    {
+        gameOverPanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void LoseLife()
+    {
+        lives--;
+
+        UpdateHearts();
+
+        if (lives <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    private void UpdateHearts()
+    {
+        heart1.SetActive(lives >= 1);
+        heart2.SetActive(lives >= 2);
+        heart3.SetActive(lives >= 3);
+    }
+
+    private void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+
+        if (fruitSpawner != null)
+        {
+            fruitSpawner.enabled = false;
+        }
+
+        Time.timeScale = 0f;
+
+        Debug.Log("Game Over");
+    }
+}

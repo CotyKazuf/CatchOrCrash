@@ -7,6 +7,12 @@ public class FruitFall : MonoBehaviour
     [SerializeField] private float caughtDestroyY = -2.5f;
 
     private bool isCaught = false;
+    private LifeSystem lifeSystem;
+
+    private void Start()
+    {
+        lifeSystem = FindObjectOfType<LifeSystem>();
+    }
 
     private void Update()
     {
@@ -22,6 +28,11 @@ public class FruitFall : MonoBehaviour
         }
         else if (!isCaught && transform.position.y <= destroyY)
         {
+            if (lifeSystem != null)
+            {
+                lifeSystem.LoseLife();
+            }
+
             Destroy(gameObject);
         }
     }
