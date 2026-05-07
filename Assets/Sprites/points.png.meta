@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 66dbbb446d8ba3c42882135338ce7c29
+guid: de1745937249c7941b470d7f7e223437
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2613247888821195678
-    second: bomb_0
-  - first:
-      213: -8469204400738329757
-    second: bomb_1
-  - first:
-      213: 8114985772114671235
-    second: bomb_2
+      213: -2724254485896824920
+    second: points_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bomb_0
+      name: points_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1254
-        height: 1254
+        width: 2400
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 26ce5c404e0ebbbd0800000000000000
-      internalID: -2613247888821195678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bomb_1
-      rect:
-        serializedVersion: 2
-        x: 712
-        y: 1064
-        width: 24
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 36b11d32877577a80800000000000000
-      internalID: -8469204400738329757
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bomb_2
-      rect:
-        serializedVersion: 2
-        x: 762
-        y: 1041
-        width: 27
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3867e3090983e9070800000000000000
-      internalID: 8114985772114671235
+      spriteID: 8a7fa529af0813ad0800000000000000
+      internalID: -2724254485896824920
       vertices: []
       indices: 
       edges: []
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bomb_0: -2613247888821195678
-      bomb_1: -8469204400738329757
-      bomb_2: 8114985772114671235
+      points_0: -2724254485896824920
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

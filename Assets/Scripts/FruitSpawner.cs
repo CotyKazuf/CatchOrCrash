@@ -4,18 +4,22 @@ using UnityEngine;
 public class FruitSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject fruitPrefab;
+    [SerializeField] private GameObject bombPrefab;
+
     [SerializeField] private float spawnInterval = 2f;
 
     [SerializeField] private float minX = -8f;
     [SerializeField] private float maxX = 8f;
     [SerializeField] private float spawnY = 5f;
 
+    [SerializeField] private float bombChance = 0.2f;
+
     private void Start()
     {
-        StartCoroutine(SpawnFruits());
+        StartCoroutine(SpawnObjects());
     }
 
-    private IEnumerator SpawnFruits()
+    private IEnumerator SpawnObjects()
     {
         while (true)
         {
@@ -23,7 +27,16 @@ public class FruitSpawner : MonoBehaviour
 
             Vector3 spawnPosition = new Vector3(randomX, spawnY, 0f);
 
-            Instantiate(fruitPrefab, spawnPosition, Quaternion.identity);
+            float randomValue = Random.Range(0f, 1f);
+
+            if (randomValue < bombChance)
+            {
+                Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(fruitPrefab, spawnPosition, Quaternion.identity);
+            }
 
             yield return new WaitForSeconds(spawnInterval);
         }

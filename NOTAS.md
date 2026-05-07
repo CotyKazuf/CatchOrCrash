@@ -19,3 +19,8 @@
 - Dificultad progresiva: con el tiempo, las frutas caen más rápido y aparecen más seguido.
 - Menú principal con botón de Start.
 - Botón de reinicio en la pantalla de Game Over.
+
+## 06/05 - Coty
+- Implementé ScoreSystem con sprites de dígitos, high score y puntaje final en Game Over.
+- Concepto clave: cada script tiene una responsabilidad; LifeSystem avisa, ScoreSystem muestra.
+- Archivos: ScoreSystem.cs (nuevo), BasketCollector.cs, BombFall.cs, FruitSpawner.cs, MainMenu.cs, LifeSystem.cs (modificados)

@@ -9,12 +9,16 @@ public class LifeSystem : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private FruitSpawner fruitSpawner;
 
+    private ScoreSystem scoreSystem;
+
     private int lives = 3;
 
     private void Start()
     {
         gameOverPanel.SetActive(false);
         Time.timeScale = 1f;
+
+        scoreSystem = FindObjectOfType<ScoreSystem>();
     }
 
     public void LoseLife()
@@ -36,9 +40,19 @@ public class LifeSystem : MonoBehaviour
         heart3.SetActive(lives >= 3);
     }
 
+    public void TriggerGameOver()
+    {
+        GameOver();
+    }
+
     private void GameOver()
     {
         gameOverPanel.SetActive(true);
+
+        if (scoreSystem != null)
+        {
+            scoreSystem.ShowFinalScore();
+        }
 
         if (fruitSpawner != null)
         {
