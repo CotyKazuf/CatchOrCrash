@@ -37,6 +37,11 @@ public class FruitFall : MonoBehaviour
         }
     }
 
+    public void SetSpeed(float speed)
+    {
+        fallSpeed = speed;
+    }
+
     public void OnCaught()
     {
         isCaught = true;

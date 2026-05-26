@@ -14,9 +14,32 @@ public class FruitSpawner : MonoBehaviour
 
     [SerializeField] private float bombChance = 0.2f;
 
+    [Header("Progressive Difficulty")]
+    [SerializeField] private float currentFallSpeed = 5f;
+    [SerializeField] private float maxFallSpeed = 10f;
+
+    [SerializeField] private float minSpawnInterval = 0.7f;
+
+    [SerializeField] private float difficultyIncreaseTime = 10f;
+    [SerializeField] private float fallSpeedIncrease = 0.5f;
+    [SerializeField] private float spawnIntervalDecrease = 0.2f;
+
+    [Header("Basket Difficulty")]
+    [SerializeField] private BasketController basketController;
+
+    [SerializeField] private float currentBasketSpeed = 5f;
+    [SerializeField] private float maxBasketSpeed = 9f;
+    [SerializeField] private float basketSpeedIncrease = 0.3f;
+
     private void Start()
     {
         StartCoroutine(SpawnObjects());
+        StartCoroutine(IncreaseDifficulty());
+
+        if (basketController != null)
+        {
+            basketController.SetSpeed(currentBasketSpeed);
+        }
     }
 
     private IEnumerator SpawnObjects()
@@ -35,10 +58,40 @@ public class FruitSpawner : MonoBehaviour
             }
             else
             {
-                Instantiate(fruitPrefab, spawnPosition, Quaternion.identity);
+                GameObject fruit = Instantiate(fruitPrefab, spawnPosition, Quaternion.identity);
+
+                FruitFall fruitFall = fruit.GetComponent<FruitFall>();
+
+                if (fruitFall != null)
+                {
+                    fruitFall.SetSpeed(currentFallSpeed);
+                }
             }
 
             yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+    private IEnumerator IncreaseDifficulty()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(difficultyIncreaseTime);
+
+            currentFallSpeed += fallSpeedIncrease;
+            spawnInterval -= spawnIntervalDecrease;
+
+            currentFallSpeed = Mathf.Min(currentFallSpeed, maxFallSpeed);
+            spawnInterval = Mathf.Max(spawnInterval, minSpawnInterval);
+
+            currentBasketSpeed += basketSpeedIncrease;
+
+            currentBasketSpeed = Mathf.Min(currentBasketSpeed, maxBasketSpeed);
+
+            if (basketController != null)
+            {
+                basketController.SetSpeed(currentBasketSpeed);
+            }
         }
     }
 }

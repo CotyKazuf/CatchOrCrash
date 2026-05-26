@@ -2,20 +2,24 @@ using UnityEngine;
 
 public class BasketController : MonoBehaviour
 {
-    [SerializeField] private float speed = 8f;
-    [SerializeField] private float minX = -8f;
-    [SerializeField] private float maxX = 8f;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float limitX = 8f;
 
     private void Update()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxis("Horizontal");
 
         Vector3 position = transform.position;
 
-        position.x += horizontalInput * speed * Time.deltaTime;
+        position.x += horizontal * speed * Time.deltaTime;
 
-        position.x = Mathf.Clamp(position.x, minX, maxX);
+        position.x = Mathf.Clamp(position.x, -limitX, limitX);
 
         transform.position = position;
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
     }
 }
