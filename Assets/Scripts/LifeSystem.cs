@@ -33,6 +33,21 @@ public class LifeSystem : MonoBehaviour
         }
     }
 
+    public void GainLife()
+    {
+        if (lives < 3)
+        {
+            lives++;
+
+            UpdateHearts();
+        }
+    }
+
+    public int GetLives()
+    {
+        return lives;
+    }
+
     private void UpdateHearts()
     {
         heart1.SetActive(lives >= 1);

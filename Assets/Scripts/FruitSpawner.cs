@@ -5,6 +5,7 @@ public class FruitSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject fruitPrefab;
     [SerializeField] private GameObject bombPrefab;
+    [SerializeField] private GameObject lifePrefab;
 
     [SerializeField] private float spawnInterval = 2f;
 
@@ -13,6 +14,9 @@ public class FruitSpawner : MonoBehaviour
     [SerializeField] private float spawnY = 5f;
 
     [SerializeField] private float bombChance = 0.2f;
+    [SerializeField] private float lifeChance = 0.08f;
+
+    [SerializeField] private LifeSystem lifeSystem;
 
     [Header("Progressive Difficulty")]
     [SerializeField] private float currentFallSpeed = 5f;
@@ -52,7 +56,18 @@ public class FruitSpawner : MonoBehaviour
 
             float randomValue = Random.Range(0f, 1f);
 
-            if (randomValue < bombChance)
+            bool canSpawnLife = false;
+
+            if (lifeSystem != null)
+            {
+                canSpawnLife = lifeSystem.GetLives() < 3;
+            }
+
+            if (canSpawnLife && randomValue < lifeChance)
+            {
+                Instantiate(lifePrefab, spawnPosition, Quaternion.identity);
+            }
+            else if (randomValue < bombChance)
             {
                 Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
             }
@@ -85,7 +100,6 @@ public class FruitSpawner : MonoBehaviour
             spawnInterval = Mathf.Max(spawnInterval, minSpawnInterval);
 
             currentBasketSpeed += basketSpeedIncrease;
-
             currentBasketSpeed = Mathf.Min(currentBasketSpeed, maxBasketSpeed);
 
             if (basketController != null)
