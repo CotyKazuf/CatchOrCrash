@@ -3,15 +3,17 @@ using UnityEngine;
 public class BasketCollector : MonoBehaviour
 {
     private ScoreSystem scoreSystem;
+    private AudioManager audioManager;
 
     private void Start()
     {
         scoreSystem = FindObjectOfType<ScoreSystem>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        FruitFall fruit = other.GetComponent<FruitFall>();
+        FruitFall fruit = collision.GetComponent<FruitFall>();
 
         if (fruit != null)
         {
@@ -22,7 +24,10 @@ public class BasketCollector : MonoBehaviour
                 scoreSystem.AddScore();
             }
 
-            Debug.Log("Fruta atrapada");
+            if (audioManager != null)
+            {
+                audioManager.PlayFruitCaught();
+            }
         }
     }
 }

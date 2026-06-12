@@ -10,15 +10,18 @@ public class LifeSystem : MonoBehaviour
     [SerializeField] private FruitSpawner fruitSpawner;
 
     private ScoreSystem scoreSystem;
+    private AudioManager audioManager;
 
     private int lives = 3;
 
     private void Start()
     {
         gameOverPanel.SetActive(false);
+
         Time.timeScale = 1f;
 
         scoreSystem = FindObjectOfType<ScoreSystem>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void LoseLife()
@@ -26,6 +29,11 @@ public class LifeSystem : MonoBehaviour
         lives--;
 
         UpdateHearts();
+
+        if (audioManager != null)
+        {
+            audioManager.PlayLifeLost();
+        }
 
         if (lives <= 0)
         {
@@ -40,6 +48,11 @@ public class LifeSystem : MonoBehaviour
             lives++;
 
             UpdateHearts();
+
+            if (audioManager != null)
+            {
+                audioManager.PlayLifePickup();
+            }
         }
     }
 
@@ -62,12 +75,12 @@ public class LifeSystem : MonoBehaviour
 
     private void GameOver()
     {
-        gameOverPanel.SetActive(true);
-
-        if (scoreSystem != null)
+        if (audioManager != null)
         {
-            scoreSystem.ShowFinalScore();
+            audioManager.PlayGameOver();
         }
+
+        gameOverPanel.SetActive(true);
 
         if (fruitSpawner != null)
         {
@@ -76,6 +89,9 @@ public class LifeSystem : MonoBehaviour
 
         Time.timeScale = 0f;
 
-        Debug.Log("Game Over");
+        if (scoreSystem != null)
+        {
+            scoreSystem.ShowFinalScore();
+        }
     }
 }

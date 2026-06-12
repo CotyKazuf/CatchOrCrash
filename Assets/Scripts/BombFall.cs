@@ -6,14 +6,19 @@ public class BombFall : MonoBehaviour
     [SerializeField] private float destroyY = -4f;
 
     private LifeSystem lifeSystem;
+    private AudioManager audioManager;
+
+    private bool lose = false;
 
     private void Start()
     {
         lifeSystem = FindObjectOfType<LifeSystem>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
     {
+        if (lose) return;
         Vector3 position = transform.position;
 
         position.y -= fallSpeed * Time.deltaTime;
@@ -26,16 +31,29 @@ public class BombFall : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Basket"))
+        BasketCollector basket = collision.GetComponent<BasketCollector>();
+
+        if (basket != null)
         {
-            if (lifeSystem != null)
+            if (audioManager != null)
             {
-                lifeSystem.TriggerGameOver();
+                audioManager.PlayBomb();
             }
 
-            Destroy(gameObject);
+            if (lifeSystem != null)
+            {
+                Invoke(nameof(TriggerLose), 0.1f);
+            }
         }
+    }
+
+    private void TriggerLose()
+    {
+        Debug.Log("lose");
+        lifeSystem.TriggerGameOver();
+
+        Destroy(gameObject);
     }
 }

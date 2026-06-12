@@ -5,6 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject pauseButton;
     [SerializeField] private FruitSpawner fruitSpawner;
 
     private void Start()
@@ -14,6 +15,11 @@ public class MainMenu : MonoBehaviour
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
+        }
+
+        if (pauseButton != null)
+        {
+            pauseButton.SetActive(false);
         }
 
         if (fruitSpawner != null)
@@ -27,6 +33,11 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         mainMenuPanel.SetActive(false);
+
+        if (pauseButton != null)
+        {
+            pauseButton.SetActive(true);
+        }
 
         if (fruitSpawner != null)
         {
